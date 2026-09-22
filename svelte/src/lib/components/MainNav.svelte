@@ -33,7 +33,7 @@
 
 </script>
 
-<header id="main-nav" class="px-base py-line">
+<header id="main-nav" class="px-base pt-line space-y-line">
   {#if siteSettings?.globalIntro}
     <div class="rich-text">
       <Portable value={siteSettings.globalIntro} />
@@ -42,35 +42,23 @@
 
   {#if siteSettings?.navLinks && siteSettings.navLinks.length > 0}
     <nav class="main-links">
-      <ul class="flex gap-[.3em]">
+      <ul class="flex gap-x-[.75lh] lg:gap-x-base">
         <li>
-          <a href="/" data-sveltekit-preload-data="hover">Home</a>{#if siteSettings.navLinks.length > 0},{/if}
+          <a href="/" data-sveltekit-preload-data="hover" class={page.url.pathname !== '/' ? 'text-accent' : ''}>Index</a>
         </li>
 
         {#each siteSettings.navLinks as link, i}
           <li>
-            <a href={link.url} target={link.openInNewTab ? '_blank' : null} rel={link.openInNewTab ? 'noopener noreferrer' : null}>{link.label}</a>{#if i < siteSettings.navLinks.length - 1},{/if}
+            <a href={link.url} target={link.openInNewTab ? '_blank' : null} rel={link.openInNewTab ? 'noopener noreferrer' : null} class={page.url.pathname !== link.url ? 'text-accent' : ''}>{link.label}</a>
           </li>
         {/each}
       </ul>
     </nav>
   {/if}
 
-  <div id="entries-filters" class="space-y-line" class:active={showFilters}>
-    <nav>
-      <ul class="flex gap-sm-plus">
-        <li>
-          <a href={buildUrl({ view: null })} class={viewParam !== 'grid' ? '' : 'text-accent'}>List</a>
-        </li>
-
-        <li>
-          <a href={buildUrl({ view: 'grid' })} class={viewParam === 'grid' ? '' : 'text-accent'}>Grid</a>
-        </li>
-      </ul>
-    </nav>
-
+  <div id="entries-filters" class:active={showFilters}>
     <nav class="category-links">
-      <ul class="flex items-center flex-wrap gap-x-sm-plus">
+      <ul class="flex items-center flex-wrap gap-x-[.75lh] gap-y-[.25lh] lg:gap-x-base lg:gap-y-line">
         <li>
           <a
             href={buildUrl({ category: null, view: viewParam })}
@@ -87,6 +75,18 @@
             >{category.title}</a>
           </li>
         {/each}
+      </ul>
+    </nav>
+
+    <nav>
+      <ul class="flex gap-x-[.75lh] gap-y-[.25lh] lg:gap-x-base lg:gap-y-line">
+        <li>
+          <a href={buildUrl({ view: null })} class={viewParam !== 'grid' ? '' : 'text-accent'}>List View</a>
+        </li>
+
+        <li>
+          <a href={buildUrl({ view: 'grid' })} class={viewParam === 'grid' ? '' : 'text-accent'}>Grid View</a>
+        </li>
       </ul>
     </nav>
   </div>

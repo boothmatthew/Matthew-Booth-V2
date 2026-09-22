@@ -13,7 +13,7 @@
       {#each block.years as item}
         <div class="grid year-row gap-sm">
           {#if item.year}
-            <span>{item.year}</span>
+            <span class="text-accent">{item.year}</span>
           {/if}
           
           <div class="rich-text"><Portable value={item.text} /></div>

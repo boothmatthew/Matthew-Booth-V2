@@ -13,7 +13,7 @@ Tailwind Vars
   --line-height-default: 2rem;
 
   --color-black: #000;
-  --color-white: #fff;
+  --color-white: #fafafa;
 
   --color-grey-1: #f7f7f7;
   --color-grey-2: #eee;
@@ -210,11 +210,12 @@ Entry Item
 .entry-item {
   display: none;
   grid-column: 1 / -1;
+  min-height: 2lh;
   /* grid-template-columns: subgrid; */
 
   &.active {
-    display: flex;
-    justify-content: flex-start;
+    display: grid;
+    grid-template-columns: subgrid;
   }
 
   /* Browsers only allow color changes on the link element itself in :visited
@@ -222,13 +223,16 @@ Entry Item
      blue/purple sits on the <a> and reaches the title span via inheritance.
      Everything else inside the link opts out with an explicit color. */
   a {
-    color: #0000ee; /* fallback: traditional default link blue */
-    color: LinkText;
+    /* color: LinkText; */
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
+    align-items: center;
+    display: grid;
 
-    &:visited {
-      color: #551a8b; /* fallback: traditional default visited purple */
+    /* &:visited {
+      color: #551a8b;
       color: VisitedText;
-    }
+    } */
   }
 
   .description,
@@ -237,8 +241,8 @@ Entry Item
   }
 
   .image {
-    display: none;
-    
+    grid-column: span 1;
+
     .img-thumbnail,
     .text-icon {
       img {
@@ -264,18 +268,70 @@ Entry Item
     }
 
     .img-thumbnail {
-      width: 35px;
+      width: 1lh;
     }
 
     .text-icon {
-      width: 35px;
-      height: 25px;
+      width: 1lh;
+      height: 1lh;
       aspect-ratio: unset;
+
+      svg {
+        width: round(.75lh, 1px) !important;
+        height: round(.85lh, 1px) !important;
+        margin: 0 auto;
+      }
     }
 
     .text-preview {
       display: none;
     }
+  }
+
+  .title {
+    grid-column: span 1;
+
+    @media (width >= 1024px) {
+      grid-column: span 4;
+    }
+  }
+
+  .categories {
+    grid-column: span 2;
+    display: none;
+
+    @media (width >= 1024px) {
+      display: block;
+    }
+  }
+
+  .description {
+    grid-column: span 4;
+    display: none;
+
+    @media (width >= 1024px) {
+      display: block;
+    }
+  }
+
+  .date {
+    grid-column: span 1;
+    max-width: 4ch;
+    overflow: hidden;
+
+    @media (width >= 640px) {
+      max-width: unset;
+      overflow: visible;
+    }
+  }
+
+  .title,
+  .title *,
+  .description,
+  .description * {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 }
 
@@ -291,7 +347,12 @@ Entries Container
   .inner {
     display: grid;
     align-items: center;
-    gap: var(--spacing-line);
+    column-gap: var(--spacing-base);
+    grid-template-columns: 1lh auto auto;
+
+    @media (width >= 1024px) {
+      grid-template-columns: repeat(12, 1fr);
+    }
   }
 
   &.is-grid-view {
@@ -429,17 +490,15 @@ Entries Filters
   display: none;
   align-items: flex-start;
   flex-direction: column;
-  /* gap: calc(var(--spacing-line) - 4px); */
-  margin-top: var(--spacing-line);
+  gap: 1lh;
 
-  /* @media (min-width: 1024px) {
-    justify-content: space-between;
-    align-items: flex-start;
+  @media (min-width: 1024px) {
     flex-direction: row;
-  } */
+    gap: 4lh;
+  }
 
   &.active {
-    display: block;
+    display: flex;
   }
 }
 

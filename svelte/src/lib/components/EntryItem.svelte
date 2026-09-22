@@ -88,17 +88,24 @@
       {/if}
     </div>
 
-    <div class="list-content">
-      <div class="title space-x-sm-plus">
-        <span class={entry.italicizeTitle ? 'italic' : ''}>{entry.title}</span>
-        {#if categoryLabels}
-          <span class="text-accent">{categoryLabels}</span>
-        {/if}
-      </div>
+    <div class="title">
+      <span class={entry.italicizeTitle ? 'italic' : ''}>{entry.title}</span>
+    </div>
 
-      <div class="description">
-        <div>{descriptionText || '-'}{ entry.year ? `, ${entry.year}` : '' }</div>
-      </div>
+    <div class="categories">
+      {#if categoryLabels}
+        <span class="text-accent">{categoryLabels}</span>
+      {/if}
+    </div>
+
+    <div class="description">
+      {#if descriptionText}
+        <span>{descriptionText}</span>
+      {/if}
+    </div>
+
+    <div class="date flex justify-end lg:justify-start">
+      <span>{ entry.year }</span>
     </div>
   </a>
 </div>

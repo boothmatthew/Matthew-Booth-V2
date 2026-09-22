@@ -4,14 +4,6 @@
   .main-links {
     li {
       display: inline-block;
-
-      a {
-        @media (min-width: 1024px) {
-          &:hover {
-            opacity: 0.5;
-          }
-        }
-      }
     }
   }
 

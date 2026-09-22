@@ -1,0 +1,43 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx tsc *)",
+      "Bash(git -C /Users/MCB/pworkspace/matthew-booth-v2 ls-files --error-unmatch --stage studio-matthew-booth-v2)",
+      "Bash(git -C /Users/MCB/pworkspace/matthew-booth-v2 status)",
+      "Bash(git rm *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "WebFetch(domain:www.sanity.io)",
+      "WebFetch(domain:medium.com)",
+      "Bash(git -C /Users/MCB/pworkspace/matthew-booth-v2 diff --stat)",
+      "Bash(git -C /Users/MCB/pworkspace/matthew-booth-v2 diff --stat HEAD~1 HEAD)",
+      "Bash(git -C /Users/MCB/pworkspace/matthew-booth-v2 status --short)",
+      "Bash(git -C /Users/MCB/pworkspace/matthew-booth-v2 log --oneline -5)",
+      "Bash(git -C /Users/MCB/pworkspace/matthew-booth-v2 diff HEAD -- studio-matthew-booth-v2/ --stat)",
+      "Bash(git -C /Users/MCB/pworkspace/matthew-booth-v2 push)",
+      "Bash(npm install *)",
+      "Bash(grep -E \"\\\\.\\(svelte|js|ts|php|html\\)$\")",
+      "Bash(find /Users/MCB/pworkspace/mb7 -name \"Image.svelte\" 2>/dev/null | head -5)",
+      "Bash(find /Users/MCB/pworkspace/mb7 -type f -name \"*.svelte\" -o -name \"*.js\" -o -name \"*.ts\" | grep -v node_modules | grep -v .svelte-kit | sort | head -30)",
+      "Bash(nvm list *)",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(d.get\\('main',''\\), d.get\\('module',''\\), list\\(d.get\\('exports',{}\\).keys\\(\\)\\)[:10]\\)\")",
+      "Bash(grep -n \"media-contain\\\\|media-cover\\\\|img,\\\\|img {\" /Users/MCB/pworkspace/matthew-booth-v2/svelte/src/styles/global.css)",
+      "Bash(find /Users/MCB/pworkspace -name \"*.css\" -o -name \"*.php\" -o -name \"*.scss\" | grep -v \"matthew-booth-v2\" | grep -v node_modules | head -20)",
+      "Bash(git diff *)",
+      "Bash(npx sanity *)",
+      "WebFetch(domain:stackoverflow.com)",
+      "Bash(find /Users/MCB/pworkspace/mb7 -name \"*.svelte\" -o -name \"*.js\" | grep -v node_modules | grep -v \".svelte-kit\" | xargs grep -l \"calendar\\\\|scroll\" 2>/dev/null | head -20)",
+      "Bash(npm run *)",
+      "Bash(sed -n '45,60p' /Users/MCB/pworkspace/matthew-booth-v2/svelte/src/styles/nav.css)",
+      "Bash(sed -n '450,465p' /Users/MCB/pworkspace/matthew-booth-v2/svelte/src/styles/global.css)",
+      "Bash(sed -n '640,655p' /Users/MCB/pworkspace/matthew-booth-v2/svelte/src/styles/global.css)",
+      "Bash(npx -y svelte-check --threshold error)",
+      "Bash(./node_modules/.bin/svelte-check --threshold error)",
+      "Bash(cat .nvmrc 2>/dev/null; ls ~/.nvm/versions/node/ 2>/dev/null; grep -i \"svelte-check\\\\|\\\\\"svelte\\\\\"\\\\|@sveltejs/kit\" package.json)",
+      "Bash(pkill -f \"vite dev --port 5179\")",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(ps -p 15056 -o pid,command)"
+    ]
+  }
+}

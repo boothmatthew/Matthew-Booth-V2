@@ -141,9 +141,9 @@ opacity: 1 !important;
 stroke: #222;
 }
 
-#entries-container:not(.is-grid-view) .entry-item .image .img-thumbnail, .entry-item .image .text-icon {
+/* #entries-container:not(.is-grid-view) .entry-item .image .img-thumbnail, .entry-item .image .text-icon {
 width: 30px !important;
-}
+} */
 
 .entry-item, .inner {
 border-color: #999 !important;
