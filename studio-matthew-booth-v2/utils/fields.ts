@@ -13,7 +13,6 @@ export const RichText = {
         title: 'Link',
         fields: [
           {name: 'href', type: 'string', title: 'URL'},
-          {name: 'blank', type: 'boolean', title: 'Open in new tab'},
         ],
       },
     ],
@@ -35,7 +34,6 @@ export const NavLink = {
   fields: [
     {name: 'label', type: 'string', title: 'Label'},
     {name: 'url', type: 'string', title: 'URL'},
-    {name: 'openInNewTab', type: 'boolean', title: 'Open in New Tab', initialValue: false},
   ],
   preview: {
     select: {title: 'label', subtitle: 'url'},

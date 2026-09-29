@@ -2,7 +2,7 @@
   // imports
   import { page } from '$app/state';
   import Portable from './Portable.svelte';
-  import { slugify } from '$lib/utils.js';
+  import { slugify, linkAttrs } from '$lib/utils.js';
 
   // derived
   const siteSettings = $derived(page?.data?.siteSettings);
@@ -49,7 +49,7 @@
 
         {#each siteSettings.navLinks as link, i}
           <li>
-            <a href={link.url} target={link.openInNewTab ? '_blank' : null} rel={link.openInNewTab ? 'noopener noreferrer' : null} class={page.url.pathname !== link.url ? 'text-accent' : ''}>{link.label}</a>
+            <a href={link.url} {...linkAttrs(link.url, page.url.origin)} class={page.url.pathname !== link.url ? 'text-accent' : ''}>{link.label}</a>
           </li>
         {/each}
       </ul>

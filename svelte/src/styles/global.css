@@ -39,7 +39,7 @@ Root Vars
 :root {
   --underline-offset: 0.1em;
   --underline-thickness: 1px;
-  --padding-amount: max(3lh, round(nearest, 15vh, 1lh));
+  --padding-amount: max(3lh, round(nearest, 12.5vh, 1lh));
   --inner-height: calc(100svh - var(--padding-amount) - var(--padding-amount));
   --inner-height-blocks: 85svh;
   --width-2-3: round(66.6667%, 1px);
@@ -316,12 +316,15 @@ Entry Item
 
   .date {
     grid-column: span 1;
-    max-width: 4ch;
-    overflow: hidden;
 
-    @media (width >= 640px) {
-      max-width: unset;
-      overflow: visible;
+    span {
+      max-width: 4ch;
+      overflow: hidden;
+
+      @media (width >= 640px) {
+        max-width: unset;
+        overflow: visible;
+      }
     }
   }
 
@@ -957,7 +960,6 @@ Carousel Block (new Svelte component)
   /* fill the flex parent — without this the section shrink-wraps to its
      content, which is just the caption until the image file has loaded */
   width: 100%;
-  cursor: pointer;
   overflow: hidden;
 
   .solo-slide {
@@ -975,6 +977,7 @@ Carousel Block (new Svelte component)
       flex-direction: column;
       margin: 0;
       max-width: 100%;
+      cursor: e-resize;
 
       .slide-media {
         img, video {
