@@ -442,25 +442,7 @@ Entries Container
             &::after {
               content: "";
               height: 33%;
-              background: linear-gradient(
-                to top,
-                hsl(0, 0%, 100%) 0%,
-                hsla(0, 0%, 100%, 0.987) 8.1%,
-                hsla(0, 0%, 100%, 0.951) 15.5%,
-                hsla(0, 0%, 100%, 0.896) 22.5%,
-                hsla(0, 0%, 100%, 0.825) 29%,
-                hsla(0, 0%, 100%, 0.741) 35.3%,
-                hsla(0, 0%, 100%, 0.648) 41.2%,
-                hsla(0, 0%, 100%, 0.55) 47.1%,
-                hsla(0, 0%, 100%, 0.45) 52.9%,
-                hsla(0, 0%, 100%, 0.352) 58.8%,
-                hsla(0, 0%, 100%, 0.259) 64.7%,
-                hsla(0, 0%, 100%, 0.175) 71%,
-                hsla(0, 0%, 100%, 0.104) 77.5%,
-                hsla(0, 0%, 100%, 0.049) 84.5%,
-                hsla(0, 0%, 100%, 0.013) 91.9%,
-                hsla(0, 0%, 100%, 0) 100%
-              );
+              background: linear-gradient(#fafafa00 0%,#fafafa03 8.1%,#fafafa0c 15.5%,#fafafa1b 22.5%,#fafafa2d 29%,#fafafa42 35.3%,#fafafa5a 41.2%,#fafafa73 47.1%,#fafafa8c 52.9%,#fafafaa5 58.8%,#fafafabd 64.7%,#fafafad2 71%,#fafafae4 77.5%,#fafafaf3 84.5%,#fafafafc 91.9%,#fafafa 100%);
               position: absolute;
               bottom: 0px;
               left: 0px;
