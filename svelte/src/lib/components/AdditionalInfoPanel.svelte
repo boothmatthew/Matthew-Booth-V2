@@ -26,7 +26,7 @@
   class="additional-info-block"
   aria-hidden={!isOpen}
 >
-  <div class="additional-info-rows w-full lg:w-2/3 mx-auto">
+  <div class="additional-info-rows">
     {#if !entry.hideDefaultAdditionalInfo}
       <p class="row-title">Title</p>
       <div class={entry.italicizeTitle ? 'italic' : ''}>{entry.title}</div>

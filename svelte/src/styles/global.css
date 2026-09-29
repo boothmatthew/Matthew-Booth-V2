@@ -1087,11 +1087,8 @@ Additional Info Panel (new Svelte component)
     min-height: 100%;
     grid-auto-rows: min-content;
 
-    @media (min-width: 1024px) {
-      grid-template-columns: max-content minmax(auto, 800px);
-      max-width: 800px;
-      padding: var(--padding-amount) 0;
-      width: var(--width-2-3);
+    @media (width >= 1024px) {
+      grid-template-columns: repeat(12, 1fr);
     }
 
     p {
@@ -1106,8 +1103,20 @@ Additional Info Panel (new Svelte component)
       }
     }
 
+    /* labels take two columns so longer ones (e.g. "Selected screenings")
+       don't wrap */
     .row-title {
       opacity: 0.35;
+
+      @media (width >= 1024px) {
+        grid-column: 3 / span 2;
+      }
+    }
+
+    & > :not(.row-title) {
+      @media (width >= 1024px) {
+        grid-column: 5 / 11;
+      }
     }
   }
 

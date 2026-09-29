@@ -33,16 +33,6 @@
 
 }
 
-.additional-info-block .additional-info-rows {
-    padding: var(--padding-amount) var(--spacing-base);
-    width: 100vw;
-    @media (width >= 64rem) {
-        padding: var(--padding-amount) 0;
-        width: var(--width-2-3);
-    }
-}
-
-
 /* TO-DO: delete this ::before pseudo-element */
 
 .additional-info-block::before {
