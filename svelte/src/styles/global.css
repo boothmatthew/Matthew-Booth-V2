@@ -365,7 +365,7 @@ Entries Container
       padding-inline: var(--spacing-base);
 
       &:hover {
-        background-color: var(--color-grey-1);
+        background-color: #00000005;
       }
     }
   }
