@@ -444,9 +444,9 @@ Entries Container
               height: 33%;
               background: linear-gradient(#fafafa00 0%,#fafafa03 8.1%,#fafafa0c 15.5%,#fafafa1b 22.5%,#fafafa2d 29%,#fafafa42 35.3%,#fafafa5a 41.2%,#fafafa73 47.1%,#fafafa8c 52.9%,#fafafaa5 58.8%,#fafafabd 64.7%,#fafafad2 71%,#fafafae4 77.5%,#fafafaf3 84.5%,#fafafafc 91.9%,#fafafa 100%);
               position: absolute;
-              bottom: 0px;
-              left: 0px;
-              right: 0px;
+              /* -1px bottom covers sub-pixel rounding at some widths, where
+                 the last row of preview text peeks out below the fade */
+              inset: auto 0 -1px;
             }
           }
         }
