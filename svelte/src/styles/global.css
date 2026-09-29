@@ -343,9 +343,8 @@ Entries Container
 */
 
 #entries-container {
-  padding: 0 var(--spacing-base) 5rem var(--spacing-base);
+  padding: 0 var(--spacing-base) 3lh;
   margin-top: 1lh;
-  /* margin-top: -0.5px; */
 
   .inner {
     display: grid;
@@ -358,6 +357,19 @@ Entries Container
     }
   }
 
+  /* hover row bleeds into the container's side padding; the equal padding
+     keeps the subgrid columns aligned */
+  &:not(.is-grid-view) .entry-item {
+    @media (width >= 1024px) {
+      margin-inline: calc(var(--spacing-base) * -1);
+      padding-inline: var(--spacing-base);
+
+      &:hover {
+        background-color: var(--color-grey-1);
+      }
+    }
+  }
+
   &.is-grid-view {
     padding: 0 var(--spacing-base) 5rem var(--spacing-base);
 
@@ -366,7 +378,6 @@ Entries Container
       column-gap: var(--spacing-grid-gap-sm);
       row-gap: var(--spacing-grid-gap-sm);
       margin-top: 30px;
-      border-bottom: none;
       grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
 
       @media (min-width: 480px) {
@@ -385,7 +396,6 @@ Entries Container
       }
 
       .entry-item {
-        border: none;
         grid-column: span 1 / span 1;
         aspect-ratio: 1;
         position: relative;

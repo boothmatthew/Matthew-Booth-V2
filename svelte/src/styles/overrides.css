@@ -135,10 +135,6 @@ stroke: #222;
 width: 30px !important;
 } */
 
-.entry-item, .inner {
-border-color: #999 !important;
-}
-
 .title.opacity-35, .description.opacity-35, .date.opacity-35 {
 opacity: 1;
 }
