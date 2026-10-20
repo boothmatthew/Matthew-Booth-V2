@@ -969,9 +969,10 @@ Carousel Block (new Svelte component)
       flex-direction: column;
       margin: 0;
       max-width: 100%;
-      cursor: e-resize;
 
       .slide-media {
+        cursor: e-resize;
+        
         img, video {
           display: block;
           max-height: calc(var(--inner-height) - 2.5rem);
