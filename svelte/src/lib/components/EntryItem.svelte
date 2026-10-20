@@ -3,21 +3,16 @@
   import Image from './Image.svelte';
   import IconDocument from './IconDocument.svelte';
   import Portable from './Portable.svelte';
-  import { slugify } from '$lib/utils.js';
   import { muxPosterUrl } from '$lib/mux.js';
   import { toPlainText } from '@portabletext/svelte';
 
-  // props — categoryParam comes from the layout (URL on the index, stored
-  // context while the detail overlay is open)
-  const { entry, categoryParam = null } = $props();
+  // props — filterSlug comes from the layout (URL on the index, stored
+  // context while the detail overlay is open); detailPath is /index or /private
+  const { entry, filterSlug = null, detailPath } = $props();
 
-  // derive slugified category values to match against ?category param
-  const categorySlugs = $derived((entry.categories ?? []).map((c) => slugify(c.title)));
-
-  // active when no category filter is set, or the entry belongs to the active category
-  const isActive = $derived(
-    categoryParam === null || categorySlugs.includes(categoryParam)
-  );
+  // active when no filter is set, or the entry belongs to the active
+  // category/collection
+  const isActive = $derived(filterSlug === null || entry.filterSlugs.includes(filterSlug));
 
   // used to show the document icon + text preview fallback when there's no featured image
   const isTextsCategory = $derived(
@@ -34,7 +29,7 @@
 
   // param-free so the same entry URL is :visited from every filtered view;
   // the filter context lives in the indexContext store instead
-  const entryUrl = $derived(`/index/${entry.slug.current}`);
+  const entryUrl = $derived(`${detailPath}/${entry.slug.current}`);
 
   // resolve thumbnail: custom override or auto-derived from first block
   const thumbnail = $derived((() => {
@@ -51,7 +46,7 @@
   const hasMuxVideo = $derived(thumbnail?.mediaType === 'muxVideo' && !!thumbnail?.muxPlaybackId);
 </script>
 
-<div class="entry-item {isActive ? 'active' : ''} {entry.externalAuthor ? 'external-author' : ''}" categories={categorySlugs.join(',')}>
+<div class="entry-item {isActive ? 'active' : ''} {entry.externalAuthor ? 'external-author' : ''}" categories={entry.filterSlugs.join(',')}>
   <a href={entryUrl} data-sveltekit-preload-data="hover">
     <div class="image">
       {#if hasImage}

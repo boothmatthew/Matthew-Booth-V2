@@ -33,5 +33,12 @@ export default {
       title: 'Nav Links',
       of: [NavLink],
     },
+    {
+      name: 'loginText',
+      type: 'array',
+      title: 'Login Text',
+      description: 'Shown above the login form for the Private page.',
+      of: [RichText],
+    },
   ],
 }

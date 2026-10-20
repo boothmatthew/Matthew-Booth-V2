@@ -1,12 +1,16 @@
-import {Button, Flex, Stack, Text, TextInput} from '@sanity/ui'
+import {Button, Card, Flex, Stack, Text, TextInput} from '@sanity/ui'
 import {useCallback, useState} from 'react'
 import type {ObjectInputProps} from 'sanity'
-import {set} from 'sanity'
+import {set, useClient, useFormValue} from 'sanity'
 
 // Hashes the password in the browser and stores only {hash, salt} — the
 // dataset is publicly readable, so the plaintext must never be persisted.
 // The hash format (sha-256 of `${salt}:${password}`) must match the
-// verification in svelte/src/hooks.server.js.
+// verification in svelte/src/lib/server/auth.js.
+//
+// Logins are password only, so two users can't share a password: before
+// saving, the new password is hashed with every other user's salt and
+// rejected if it matches.
 
 const randomHex = (bytes: number) =>
   Array.from(crypto.getRandomValues(new Uint8Array(bytes)))
@@ -31,15 +35,29 @@ const generatePassword = () => {
 
 export function PasswordInput(props: ObjectInputProps) {
   const [password, setPassword] = useState('')
+  const [error, setError] = useState<string | null>(null)
   const isSet = Boolean((props.value as {hash?: string} | undefined)?.hash)
+  const documentId = (useFormValue(['_id']) as string).replace(/^drafts\./, '')
+  const client = useClient({apiVersion: '2025-01-12'})
 
   const handleSave = useCallback(async () => {
     if (!password) return
+    const others: {auth?: {hash?: string; salt?: string}}[] = await client.fetch(
+      `*[_type == "siteUser" && !(_id in [$id, "drafts." + $id])]{ auth }`,
+      {id: documentId},
+    )
+    for (const {auth} of others) {
+      if (auth?.hash && auth.salt && (await sha256Hex(`${auth.salt}:${password}`)) === auth.hash) {
+        setError('Another site user already has this password. Choose a different one.')
+        return
+      }
+    }
     const salt = randomHex(16)
     const hash = await sha256Hex(`${salt}:${password}`)
     props.onChange(set({hash, salt}))
     setPassword('')
-  }, [password, props])
+    setError(null)
+  }, [password, props, client, documentId])
 
   return (
     <Stack space={3}>
@@ -52,11 +70,19 @@ export function PasswordInput(props: ObjectInputProps) {
         <TextInput
           value={password}
           placeholder="Password"
-          onChange={(event) => setPassword(event.currentTarget.value)}
+          onChange={(event) => {
+            setPassword(event.currentTarget.value)
+            setError(null)
+          }}
         />
         <Button mode="ghost" text="Generate" onClick={() => setPassword(generatePassword())} />
         <Button tone="primary" text="Save" disabled={!password} onClick={handleSave} />
       </Flex>
+      {error && (
+        <Card tone="critical" padding={3} radius={2}>
+          <Text size={1}>{error}</Text>
+        </Card>
+      )}
     </Stack>
   )
 }

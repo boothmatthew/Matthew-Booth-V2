@@ -1,6 +1,6 @@
 import {createElement} from 'react'
 import {ImageField, RichText} from '../utils/fields'
-import {SITES} from '../utils/sites'
+import {STATUSES} from '../utils/sites'
 import {ReferenceCheckboxes} from '../components/ReferenceCheckboxes'
 import {AdditionalInfoInput} from '../components/AdditionalInfoInput'
 import {orderRankField} from '@sanity/orderable-document-list'
@@ -52,13 +52,14 @@ export default {
       components: {input: ReferenceCheckboxes},
     },
     {
-      name: 'sites',
+      name: 'status',
       type: 'array',
-      title: 'Show On Sites',
-      description: 'Which sites this entry appears on.',
+      title: 'Status',
+      description:
+        'Public entries appear on the index. WIP and Testing entries are only shown to logged-in users given access to them.',
       of: [{type: 'string'}],
-      options: {list: SITES, layout: 'grid'},
-      initialValue: ['main'],
+      options: {list: STATUSES, layout: 'grid'},
+      initialValue: ['public'],
     },
     {
       name: 'useCustomThumbnail',

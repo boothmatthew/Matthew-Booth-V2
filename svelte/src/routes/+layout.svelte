@@ -62,7 +62,10 @@
 	{/if}
 </svelte:head>
 
-<MainNav />
+<!-- the login page stands alone, without the site chrome -->
+{#if page.route.id !== '/login'}
+	<MainNav />
+{/if}
 
 <main>
 	{@render children()}

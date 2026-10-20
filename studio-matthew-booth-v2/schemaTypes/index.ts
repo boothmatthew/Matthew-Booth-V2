@@ -1,5 +1,6 @@
 import siteSettings from './siteSettings'
 import category from './category'
+import collection from './collection'
 import page from './page'
 import entry from './entry'
 import siteUser from './siteUser'
@@ -16,6 +17,7 @@ export const schemaTypes = [
   category,
   page,
   entry,
+  collection,
   siteUser,
   // Block object types
   textBlock,

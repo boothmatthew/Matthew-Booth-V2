@@ -1,21 +1,25 @@
 <script>
   // imports
   import { page } from '$app/state';
+  import { enhance } from '$app/forms';
   import Portable from './Portable.svelte';
-  import { slugify, linkAttrs } from '$lib/utils.js';
+  import { linkAttrs } from '$lib/utils.js';
 
-  // derived
+  // derived — filters are categories on the public index, the user's
+  // collections on /private (each layout's load supplies its own)
   const siteSettings = $derived(page?.data?.siteSettings);
-  const categories = $derived(page?.data?.categories ?? []);
+  const filters = $derived(page?.data?.filters ?? []);
+  const filterParam = $derived(page?.data?.filterParam ?? 'category');
+  // set on /private, which always shows one collection and has no Everything
+  const defaultFilter = $derived(page?.data?.defaultFilter ?? null);
+  const loggedIn = $derived(page?.data?.loggedIn ?? false);
+  const isPrivate = $derived(page.route.id?.startsWith('/private') ?? false);
 
   // params
-  const categoryParam = $derived(page.url.searchParams.get('category'));
+  const filterSlug = $derived(page.url.searchParams.get(filterParam) ?? defaultFilter);
   const viewParam = $derived(page.url.searchParams.get('view'));
-  const showFilters = $derived(page.route.id === '/(index)' || page.route.id === '/(index)/index/[slug]');
-  const toggleUrl = $derived(
-    viewParam === 'grid'
-      ? buildUrl({ category: categoryParam, view: null })
-      : buildUrl({ category: categoryParam, view: 'grid' })
+  const showFilters = $derived(
+    ['/(index)', '/(index)/index/[slug]', '/private', '/private/[slug]'].includes(page.route.id)
   );
 
   // function to build link urls
@@ -52,6 +56,18 @@
             <a href={link.url} {...linkAttrs(link.url, page.url.origin)} class={page.url.pathname !== link.url ? 'text-accent' : ''}>{link.label}</a>
           </li>
         {/each}
+
+        <li>
+          <a href={loggedIn ? '/private' : '/login'} class={isPrivate ? '' : 'text-accent'}>Private</a>
+        </li>
+
+        {#if loggedIn && isPrivate}
+          <li>
+            <form method="post" action="/login?/logout" use:enhance>
+              <button class="text-accent cursor-pointer">Log out</button>
+            </form>
+          </li>
+        {/if}
       </ul>
     </nav>
   {/if}
@@ -59,20 +75,21 @@
   <div id="entries-filters" class:active={showFilters}>
     <nav class="category-links">
       <ul class="flex items-center flex-wrap gap-x-[.75lh] gap-y-[.25lh] lg:gap-x-base lg:gap-y-line">
-        <li>
-          <a
-            href={buildUrl({ category: null, view: viewParam })}
-            class={categoryParam === null ? 'link-active' : ''}
-          >Everything</a>
-        </li>
-
-        {#each categories as category}
-          {@const slug = slugify(category.title)}
+        {#if !defaultFilter}
           <li>
             <a
-              href={buildUrl({ category: slug, view: viewParam })}
-              class={categoryParam === slug ? 'link-active' : ''}
-            >{category.title}</a>
+              href={buildUrl({ [filterParam]: null, view: viewParam })}
+              class={filterSlug === null ? 'link-active' : ''}
+            >Everything</a>
+          </li>
+        {/if}
+
+        {#each filters as filter}
+          <li>
+            <a
+              href={buildUrl({ [filterParam]: filter.slug, view: viewParam })}
+              class={filterSlug === filter.slug ? 'link-active' : ''}
+            >{filter.title}</a>
           </li>
         {/each}
       </ul>

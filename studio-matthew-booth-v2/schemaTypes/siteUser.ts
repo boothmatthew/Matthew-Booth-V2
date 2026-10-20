@@ -21,13 +21,34 @@ export default {
       initialValue: true,
     },
     {
+      name: 'collections',
+      type: 'array',
+      title: 'Collections',
+      description:
+        'Collections this person sees on the Private page, in this order (drag to reorder). The Private page opens on the first one; WIP and Testing come after.',
+      of: [{type: 'reference', to: [{type: 'collection'}]}],
+    },
+    {
+      name: 'canSeeWip',
+      type: 'boolean',
+      title: 'Can See WIP Entries',
+      description: 'Adds a WIP collection with every WIP entry to their Private page.',
+      initialValue: false,
+    },
+    {
+      name: 'canSeeTesting',
+      type: 'boolean',
+      title: 'Can See Testing Entries',
+      description: 'Adds a Testing collection with every Testing entry to their Private page.',
+      initialValue: false,
+    },
+    {
       name: 'sites',
       type: 'array',
-      title: 'Can Access Sites',
-      description: 'Which password-protected sites this person can log into.',
+      title: 'Can Access Subdomains',
+      description: 'Which password-protected subdomains this person can log into.',
       of: [{type: 'string'}],
       options: {list: GATED_SITES, layout: 'grid'},
-      validation: (Rule: any) => Rule.required().min(1),
     },
     {
       name: 'auth',
@@ -43,10 +64,11 @@ export default {
     },
   ],
   preview: {
-    select: {title: 'name', active: 'active', sites: 'sites'},
-    prepare({title, active, sites}: any) {
-      const siteList = sites?.length ? sites.join(', ') : 'no sites'
-      return {title, subtitle: active ? siteList : `inactive — ${siteList}`}
+    select: {title: 'name', active: 'active', collections: 'collections'},
+    prepare({title, active, collections}: any) {
+      const count = collections?.length ?? 0
+      const subtitle = `${count} ${count === 1 ? 'collection' : 'collections'}`
+      return {title, subtitle: active ? subtitle : `inactive — ${subtitle}`}
     },
   },
 }
