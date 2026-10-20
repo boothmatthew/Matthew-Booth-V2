@@ -1074,6 +1074,7 @@ Additional Info Panel (new Svelte component)
     grid-template-columns: auto;
     column-gap: var(--spacing-base);
     align-items: start;
+    align-content: center;
     padding: var(--padding-amount) var(--spacing-base);
     width: 100vw;
     min-height: 100%;
