@@ -661,8 +661,15 @@ Entry Detail Page
     transition: transform 0.5s ease;
   }
 
+  /* Slide up by the main slide's footprint: below desktop it's a 3lh top
+     margin plus 100dvh - 6lh (no bottom margin), so a full 100svh would
+     overshoot and tuck the info panel 3lh under the header. */
   &.info-open .slide-panels {
-    transform: translateY(-100svh);
+    transform: translateY(calc(3lh - 100dvh));
+
+    @media (width >= 1024px) {
+      transform: translateY(-100svh);
+    }
   }
 
   .slide-item-inner {
