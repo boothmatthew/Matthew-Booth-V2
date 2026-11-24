@@ -33,10 +33,10 @@
       placeholder="Password"
       aria-label="Password"
       required
-      class="border px-xs py-xs"
+      class="border px-xs py-xs text-[1.6rem] lg:text-base"
     />
 
-    <button type="submit" class="border px-xs py-xs cursor-pointer">Log in</button>
+    <button type="submit" class="w-fit px-xs">Log in</button>
 
     {#if form?.error}
       <p class="text-accent" aria-live="polite">{form.error}</p>

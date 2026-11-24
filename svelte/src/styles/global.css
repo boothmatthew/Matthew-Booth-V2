@@ -7,10 +7,10 @@ Tailwind Vars
 @theme {
   --text-sm: clamp(0.8rem, round(1.5vw, 0.1rem), 1.2rem);
   --text-sm--line-height: 1.25;
-  --text-base: 1.6rem;
-  --text-base--line-height: 1.25;
+  --text-base: 1.5rem;
+  --text-base--line-height: 1.2;
 
-  --line-height-default: 2rem;
+  --line-height-default: 1.8rem;
 
   --color-black: #000;
   --color-white: #fafafa;
@@ -147,11 +147,6 @@ Utils
   object-position: center;
   width: 100%;
   height: 100%;
-}
-
-@utility def-underline {
-  text-decoration: none;
-  color: #5e7734;
 }
 
 @utility vert-xs-spacing {
@@ -357,16 +352,13 @@ Entries Container
     }
   }
 
-  /* hover row bleeds into the container's side padding; the equal padding
-     keeps the subgrid columns aligned */
-  &:not(.is-grid-view) .entry-item {
+  /* hover bullet sits in the column gap before the title */
+  &:not(.is-grid-view) .entry-item:hover .title::before {
     @media (width >= 1024px) {
-      margin-inline: calc(var(--spacing-base) * -1);
-      padding-inline: var(--spacing-base);
-
-      &:hover {
-        background-color: #00000005;
-      }
+      content: "•";
+      position: absolute;
+      margin-left: calc(var(--spacing-base) * -1);
+      color: var(--color-accent);
     }
   }
 
@@ -389,7 +381,7 @@ Entries Container
       }
 
       @media (min-width: 1024px) {
-        grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
         column-gap: var(--spacing-grid-gap-base);
         row-gap: var(--spacing-grid-gap-base);
         margin-top: 2.5lh;
@@ -651,13 +643,33 @@ Carousel Block
 Entry Detail Page
 */
 
+/* The overlay's background lives on the body, and the overlay itself is
+   transparent: iOS Safari tints the areas behind its bars from a fixed
+   element's background and doesn't update them when that color changes. The
+   index underneath is hidden instead of covered, keeping its layout and scroll
+   position. */
+body {
+  &:has(#entry-detail:not(.hidden)) :is(#main-nav, #entries-container) {
+    visibility: hidden;
+  }
+
+  /* like the panel below, only fades for deliberate toggles */
+  &:has(#entry-detail.animate) {
+    transition: background-color 0.5s ease-in-out;
+  }
+
+  &:has(#entry-detail.info-open) {
+    background-color: var(--color-grey-2);
+  }
+}
+
 #entry-detail {
   overflow: hidden;
 
   /* Only animate the panel for deliberate toggles (Information button,
      up/down arrows) — the .animate class is cleared during entry navigation
      so prev/next swaps snap instantly. */
-  .slide-panels.animate {
+  &.animate .slide-panels {
     transition: transform 0.5s ease;
   }
 
@@ -978,8 +990,8 @@ Carousel Block (new Svelte component)
       max-width: 100%;
 
       .slide-media {
-        cursor: e-resize;
-        
+        cursor: pointer;
+
         img, video {
           display: block;
           max-height: calc(var(--inner-height) - 2.5rem);
@@ -1083,7 +1095,7 @@ Additional Info Panel (new Svelte component)
     column-gap: var(--spacing-base);
     align-items: start;
     align-content: center;
-    padding: var(--padding-amount) var(--spacing-base);
+    padding: var(--padding-amount) var(--spacing-base) calc(var(--padding-amount) + 1lh);
     width: 100vw;
     min-height: 100%;
     grid-auto-rows: min-content;

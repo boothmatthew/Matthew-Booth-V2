@@ -129,6 +129,7 @@ opacity: 1 !important;
 
 .text-icon path {
 stroke: #222;
+stroke-width: 1.5;
 }
 
 /* #entries-container:not(.is-grid-view) .entry-item .image .img-thumbnail, .entry-item .image .text-icon {

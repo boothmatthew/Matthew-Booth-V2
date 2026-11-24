@@ -185,7 +185,7 @@
 </div>
 
 <!-- detail overlay shell — always present when detail is open, children always rendered -->
-<div id="entry-detail" class="fixed inset-0 z-[1000] bg-white" class:info-open={infoOpen} class:hidden={!isDetailOpen}>
+<div id="entry-detail" class="fixed inset-0 z-[1000]" class:info-open={infoOpen} class:animate={panelAnimate} class:hidden={!isDetailOpen}>
 
   <!-- header -->
   {#if entry}
@@ -214,7 +214,7 @@
 
   <!-- slide panels wrapper — keyed on slug so child components fully remount on entry change -->
   {#key entry?.slug?.current}
-  <div class="slide-panels" class:animate={panelAnimate}>
+  <div class="slide-panels">
     {@render children()}
 
     {#if entry}

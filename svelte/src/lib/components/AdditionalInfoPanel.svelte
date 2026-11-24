@@ -63,7 +63,6 @@
                 <a
                   href="/index/{related.slug.current}"
                   data-sveltekit-preload-data="hover"
-                  class="def-underline"
                   class:italic={related.italicizeTitle}
                 >{related.title}</a>
               </li>
